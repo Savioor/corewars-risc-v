@@ -314,7 +314,7 @@ public class InstructionRunner {
 
 
     private void jump(CpuStateRiscV state, int immediate, int instructionSize) {
-        state.setPc(state.getPc() + immediate - instructionSize);
+        state.setPc((state.getPc() + immediate - instructionSize) & 0xFFFF);
     }
 
     private void jump(CpuStateRiscV state, int immediate) {

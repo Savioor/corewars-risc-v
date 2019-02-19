@@ -373,7 +373,8 @@ public class InstructionTest {
         state.setReg(RS1, 0);
         loadInstruction(RV32C.cInstructionFormatCBBranch(RV32C.Opcodes.CBEQZ, RS1, -8));
         cpu.nextOpcode();
-        assertEquals(-8, state.getPc());
+        // -8 in signed 16 bit memory looks like: 0xFFF8. therefor, when looking at it in a unsigned manner we get 65528
+        assertEquals(65528, state.getPc());
 
         state.setReg(RS1, 5);
         loadInstruction(RV32C.cInstructionFormatCBBranch(RV32C.Opcodes.CBEQZ, RS1, -8));
@@ -391,7 +392,8 @@ public class InstructionTest {
         state.setReg(RS1, 5);
         loadInstruction(RV32C.cInstructionFormatCBBranch(RV32C.Opcodes.CBNEZ, RS1, -8));
         cpu.nextOpcode();
-        assertEquals(-8, state.getPc());
+        // -8 in signed 16 bit memory looks like: 0xFFF8. therefor, when looking at it in a unsigned manner we get 65528
+        assertEquals(65528, state.getPc());
 
         state.setReg(RS1, 0);
         loadInstruction(RV32C.cInstructionFormatCBBranch(RV32C.Opcodes.CBNEZ, RS1, -8));
@@ -410,8 +412,8 @@ public class InstructionTest {
         loadInstruction(RV32C.cInstructionFormatCJ(RV32C.Opcodes.CJ, -8));
 
         cpu.nextOpcode();
-
-        assertEquals(-8, state.getPc());
+        // -8 in signed 16 bit memory looks like: 0xFFF8. therefor, when looking at it in a unsigned manner we get 65528
+        assertEquals(65528, state.getPc());
     }
 
     @Test
@@ -426,7 +428,7 @@ public class InstructionTest {
         loadInstruction(RV32C.cInstructionFormatCJ(RV32C.Opcodes.CJAL, -8));
 
         cpu.nextOpcode();
-
-        assertEquals(-8, state.getPc());
+        // -8 in signed 16 bit memory looks like: 0xFFF8. therefor, when looking at it in a unsigned manner we get 65528
+        assertEquals(65528, state.getPc());
     }
 }
